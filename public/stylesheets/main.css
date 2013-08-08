@@ -1,0 +1,391 @@
+body{
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+#off-screen-nav{
+    background-color: black;
+    width: 200px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+#off-screen-nav.open{
+    left: 0;
+}
+
+#off-screen-nav.closed{
+    left: -200px;
+}
+
+
+
+#main-container.container-fluid{
+    padding: 0;
+}
+
+/** Boarding Pass Styling **/
+.boarding-pass{
+    position: relative;
+    width: 850px;
+    margin-left:auto;
+    margin-right: auto;
+}
+
+.boarding-pass .wrapper label{
+    font-weight: bolder;
+    float: left;
+    width: 50px;
+    margin-top: 3px;
+}
+
+.boarding-pass .wrapper{
+    position: absolute;
+    width: 400px;
+}
+
+.boarding-pass .wrapper input{
+    float: left;
+    background-color: #F1F3F2;
+    border: none;
+    border-bottom: 1px solid black;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    height: 19px;
+    margin-top: 3px;
+    width:260px;
+}
+
+.boarding-pass .leaving-from.wrapper{
+    left: 80px;
+    top: 160px;
+}
+
+.boarding-pass .going-to.wrapper{
+    left: 80px;
+    top: 186px;
+}
+
+.boarding-pass .from-date.wrapper{
+    top: 238px;
+    left: 160px;
+}
+
+.boarding-pass .from-date.wrapper label{
+    width: 90px;
+}
+
+.boarding-pass .from-date.wrapper input{
+    width: 100px;
+}
+
+.boarding-pass .add-button, .boarding-pass .remove-button{
+    position: absolute;
+    text-decoration: none;
+}
+
+.boarding-pass .add-button{
+    color: green;
+    top: 45%;
+
+}
+
+.boarding-pass .remove-button{
+    color: red;
+    top: 55%;
+}
+/** End Boarding Pass styling **/
+
+#loading-animation{
+    position: absolute;
+    top: 35%;
+    left: 48%;
+    font-size: 1000%;
+    z-index: 100;
+    display: none;
+}
+
+.panel{
+    background-color: white;
+}
+
+.panel h3{
+    text-align: center;
+}
+
+#home-panel{
+    padding: 0 20px;
+}
+
+#charts-panel{
+}
+
+#events-panel{
+
+}
+
+#map-panel-container{
+    height: 800px;
+    margin: 0;
+    width: 100%;
+}
+
+#map-panel{
+    width:100%;
+    height: 100%;
+    margin: 0;
+    float:left;
+}
+
+#map-panel-container .boarding-pass{
+    position: absolute;
+    left:50%;
+    bottom: 0;
+    margin-left: -425px;
+}
+
+#marker-switch-container{
+    width: 150px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#marker-switch-container a{
+    text-decoration: none;
+    padding: 10px;
+    cursor:pointer;
+}
+
+/** Top Bar header **/
+.header{
+    background-color: #3b5998;
+    border-bottom: 1px solid #133783;
+}
+
+.header .button{
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bolder;
+    font-weight: bolder;
+    font-size: 130%;
+    padding: 10px;
+}
+
+.header .container{
+    height: 40px;
+}
+
+.header .login.button{
+    float: right;
+    line-height: 26px;
+}
+
+.header #logged-in-container{
+    display: none;
+}
+
+.header #fb-logout-button{
+    float: right;
+}
+
+.header .button.icon{
+    padding: 5px 10px 5px 10px;
+    float:left;
+    font-size: 200%;
+    font-weight: normal;;
+}
+
+.header .button:hover{
+    color: #133783;
+}
+
+.header #notification-button.active{
+    color: red;
+}
+
+#fb-login-button span{
+    display: block;
+    float: left;
+    padding-top: 3px;
+    padding-right: 5px;
+}
+
+#notification-dropdown{
+    min-width: 225px;
+    left: auto;
+    padding: 10px;
+    position: absolute;
+    top: 35px;
+}
+
+#notification-dropdown header{
+    border-bottom: 1px solid black;
+    padding: 5px 0;
+}
+
+
+#notification-dropdown ul{
+    margin: 0;
+}
+
+#notification-dropdown li{
+    padding: 5px 0;
+}
+
+/** End Top Bar header **/
+
+
+/** Modal Windows **/
+.modal-window{
+    padding: 20px;
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+.modal-window h3{
+    text-align:center;
+}
+
+.modal-window ul{
+    list-style: none;
+    margin: 0;
+}
+
+/** Notifications Modal **/
+
+#notifications-list li a{
+    padding: 20px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    color: black;
+}
+
+#notifications-list li a{
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+#notifications-list li a:hover{
+    border: 1px solid #a9a9a9;
+    background-color: #f2f4f8;
+}
+
+
+/** Friends List on Modals **/
+.modal-window .friends-list li{
+      float:left;
+      width: 48%;
+      border: 1px solid white;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 3px;
+  }
+
+.modal-window .friends-list li.unselected:hover{
+    border: 1px solid #a9a9a9;
+    background-color: #f2f4f8;
+}
+
+.modal-window .friends-list li.selected:hover{
+    border: 1px solid #a9a9a9;
+}
+
+.modal-window .friends-list li.selected{
+    border: 1px solid #133783;
+
+    background-color: #3b5998;
+    color: white;
+}
+
+.modal-window .friends-list .friend-information{
+    float:left;
+    max-width: 198px;
+}
+
+.modal-window .friends-list li span{
+    display: block;
+    height: 32px;
+    line-height: 16px;
+    padding-top: 7px;
+}
+
+.modal-window .friends-list li a{
+    text-decoration: none;
+    color: black;
+    display: block;
+    float: left;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.modal-window .friends-list li a:hover{
+    color: red;
+}
+
+.modal-window .friends-list img{
+    padding: 3px;
+    float: left;
+}
+
+/** Friends Modal button container**/
+#friends-modal #button-container {
+    width: 120px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 10px;
+}
+
+#friends-modal #button-container a{
+    display: inline;
+    color: black;
+    text-decoration: none;
+    padding: 5px;
+}
+#friends-modal #button-container a:hover{
+    color: red;
+}
+
+#friends-modal #button-container #deselect-all{
+    display: none;
+}
+
+
+/** Flights Panel **/
+
+#flights-table{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+#flights-table tr th{
+    font-weight: bolder;
+    color: #3b5998;
+}
+
+
+#flights-table tr td{
+    font-weight: bolder;
+    padding: 0 5px;
+}
+
+#flights-table tr{
+    margin: 5px 0;
+}
+
+#flights-table .remove-button{
+    color: red;
+    text-decoration: none;
+}
+
+#flights-table .add-button{
+    color: green;
+    text-decoration: none;
+}
+
+
