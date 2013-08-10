@@ -15,8 +15,7 @@ function initializeMap(elementId) {
     var mapOptions = {
         center: defaultCenter,
         zoom: defaultZoom,
-        minZoom : 2,
-        maxZoom : 12,
+        
         draggable: true,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         streetViewControl: false,

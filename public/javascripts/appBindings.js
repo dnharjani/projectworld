@@ -1,4 +1,4 @@
-define(["knockout", "underscore", "modernizr", "facebook"], function(ko, _, Modernizr, facebook)
+define(["knockout", "underscore", "modernizr", "facebook", "mapService"], function(ko, _, Modernizr, facebook, mapService)
 {
 
     var AppModel = function(){
@@ -10,6 +10,9 @@ define(["knockout", "underscore", "modernizr", "facebook"], function(ko, _, Mode
 
         self.initialize = function(){
             facebook.getLoginStatus(self.updateLoginStatus);
+
+            mapService.createMap();
+
         };
 
         self.updateLoginStatus = function(response){
