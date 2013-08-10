@@ -43,6 +43,8 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService"], functi
             facebook.logout(callback);
         }
 
+
+
         var myInfoChangeSubscriber = self.loginStatus.subscribe(function(newValue){
             if(newValue === true){
                 var success = function(result){
@@ -59,8 +61,8 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService"], functi
         var friendsInfoChangeSubscriber = self.loginStatus.subscribe(function(newValue){
             if(newValue === true){
                 var success = function(result){
-                    for(var i = 0; i < result.data.length; i++){
-                        self.facebookFriends.push(result.data[i]);
+                    for(var i = 0; i < result.length; i++){
+                        self.facebookFriends.push(result[i]);
                     }
                 }
                 facebook.getFriendsInfo(success);

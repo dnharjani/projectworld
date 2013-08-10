@@ -24,17 +24,6 @@ define(["facebookSDK", "jquery", "underscore" ], function(FB, $, _){
         }); 
     }
 
-    function getFriendsInfo(success, error){
-        FB.api('/me/friends', {fields: 'name,id,location'} , function(result) {
-            if(result){
-                success(result);
-            }
-            else{
-                error();
-            }
-        });
-    }
-
     function login(success, error) {
         FB.login(function(response) {
             if (response.authResponse) {
@@ -51,6 +40,21 @@ define(["facebookSDK", "jquery", "underscore" ], function(FB, $, _){
             callback();     
         });
     };
+
+    function getFriendsInfo(callback){
+        FB.api(
+            '/fql',
+            {
+                q:{
+                    'query1': "SELECT uid, name, current_location FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1=me())"
+                }
+            }
+            ,
+            function(response) {
+                callback(response.data[0].fql_result_set);
+            }
+        );
+    }
 
     var facebook = {
         login : login,
