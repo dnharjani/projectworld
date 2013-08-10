@@ -3,101 +3,9 @@ body{
     overflow: hidden;
 }
 
-#off-screen-nav{
-    background-color: black;
-    width: 200px;
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-    height: 100%;
-}
-
-#off-screen-nav.open{
-    left: 0;
-}
-
-#off-screen-nav.closed{
-    left: -200px;
-}
-
-
-
 #main-container.container-fluid{
     padding: 0;
 }
-
-/** Boarding Pass Styling **/
-.boarding-pass{
-    position: relative;
-    width: 850px;
-    margin-left:auto;
-    margin-right: auto;
-}
-
-.boarding-pass .wrapper label{
-    font-weight: bolder;
-    float: left;
-    width: 50px;
-    margin-top: 3px;
-}
-
-.boarding-pass .wrapper{
-    position: absolute;
-    width: 400px;
-}
-
-.boarding-pass .wrapper input{
-    float: left;
-    background-color: #F1F3F2;
-    border: none;
-    border-bottom: 1px solid black;
-    border-radius: 0;
-    box-shadow: none;
-    padding: 0;
-    height: 19px;
-    margin-top: 3px;
-    width:260px;
-}
-
-.boarding-pass .leaving-from.wrapper{
-    left: 80px;
-    top: 160px;
-}
-
-.boarding-pass .going-to.wrapper{
-    left: 80px;
-    top: 186px;
-}
-
-.boarding-pass .from-date.wrapper{
-    top: 238px;
-    left: 160px;
-}
-
-.boarding-pass .from-date.wrapper label{
-    width: 90px;
-}
-
-.boarding-pass .from-date.wrapper input{
-    width: 100px;
-}
-
-.boarding-pass .add-button, .boarding-pass .remove-button{
-    position: absolute;
-    text-decoration: none;
-}
-
-.boarding-pass .add-button{
-    color: green;
-    top: 45%;
-
-}
-
-.boarding-pass .remove-button{
-    color: red;
-    top: 55%;
-}
-/** End Boarding Pass styling **/
 
 #loading-animation{
     position: absolute;
@@ -116,17 +24,6 @@ body{
     text-align: center;
 }
 
-#home-panel{
-    padding: 0 20px;
-}
-
-#charts-panel{
-}
-
-#events-panel{
-
-}
-
 #map-panel-container{
     height: 800px;
     margin: 0;
@@ -138,25 +35,6 @@ body{
     height: 100%;
     margin: 0;
     float:left;
-}
-
-#map-panel-container .boarding-pass{
-    position: absolute;
-    left:50%;
-    bottom: 0;
-    margin-left: -425px;
-}
-
-#marker-switch-container{
-    width: 150px;
-    margin-left:auto;
-    margin-right:auto;
-}
-
-#marker-switch-container a{
-    text-decoration: none;
-    padding: 10px;
-    cursor:pointer;
 }
 
 /** Top Bar header **/
@@ -184,10 +62,6 @@ body{
     line-height: 26px;
 }
 
-.header #logged-in-container{
-    display: none;
-}
-
 .header #fb-logout-button{
     float: right;
 }
@@ -213,31 +87,6 @@ body{
     padding-top: 3px;
     padding-right: 5px;
 }
-
-#notification-dropdown{
-    min-width: 225px;
-    left: auto;
-    padding: 10px;
-    position: absolute;
-    top: 35px;
-}
-
-#notification-dropdown header{
-    border-bottom: 1px solid black;
-    padding: 5px 0;
-}
-
-
-#notification-dropdown ul{
-    margin: 0;
-}
-
-#notification-dropdown li{
-    padding: 5px 0;
-}
-
-/** End Top Bar header **/
-
 
 /** Modal Windows **/
 .modal-window{
@@ -353,39 +202,4 @@ body{
 #friends-modal #button-container #deselect-all{
     display: none;
 }
-
-
-/** Flights Panel **/
-
-#flights-table{
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-}
-
-#flights-table tr th{
-    font-weight: bolder;
-    color: #3b5998;
-}
-
-
-#flights-table tr td{
-    font-weight: bolder;
-    padding: 0 5px;
-}
-
-#flights-table tr{
-    margin: 5px 0;
-}
-
-#flights-table .remove-button{
-    color: red;
-    text-decoration: none;
-}
-
-#flights-table .add-button{
-    color: green;
-    text-decoration: none;
-}
-
 

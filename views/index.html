@@ -8,98 +8,29 @@
     <link rel="stylesheet" href="stylesheets/font-awesome.css">
     <link rel="stylesheet" href="stylesheets/main.css">
 
-    <link rel="stylesheet" href="stylesheets/datepicker.css">
-
-    <script type="text/javascript" src="javascripts/libs/jquery-1.9.1.js" ></script>
-    <script type="text/javascript" src="javascripts/libs/bootstrap.js"></script>
-    <script type="text/javascript" src="javascripts/bootstrap-widgets/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="javascripts/libs/modernizr.js"></script>
-    <script type="text/javascript" src="javascripts/apikeys.js"></script>
-    <script type="text/javascript" src="javascripts/libs/knockout-2.2.1.debug.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC82ktM_T7U5hImcMmjYLbaNhXrp6g9uhY&sensor=false&v=3&libraries=geometry"></script>
 
-    <script type="text/javascript" src="javascripts/facebook.js"></script>
-    <script type="text/javascript" src="javascripts/google-maps.js"></script>
+    <script data-main="/javascripts/main" src="/javascripts/vendor/require.js"></script>
 </head>
 <body>
+    <div id="loading-animation" class="icon-spinner icon-spin"></div>           
+    
     <header class="header">
         <div class="container-fluid">
-            <a id="fb-login-button" class="login button"><span class="icon-facebook-sign"></span>Login</a>
-            <div id="logged-in-container" class="clearfix">
-                <a id="notification-button" class="icon icon-lightbulb button has-tooltip" data-toggle="tooltip" data-original-title="Notifications" data-placement="bottom" data-trigger="hover" data-bind="click: showNotifications"></a>
-                <a id="local-map" class="icon icon-home button has-tooltip" data-toggle="tooltip" data-original-title="My Home" data-placement="bottom" data-trigger="hover" data-bind="click: switchToMapPanel"></a>
-                <a id="global-map" class="icon icon-globe button has-tooltip" data-toggle="tooltip" data-original-title="My World" data-placement="bottom" data-trigger="hover" data-bind="click: switchToMapPanel"></a>
-                <!--<a class="icon icon-plane button has-tooltip" data-toggle="tooltip" data-original-title="My Trips" data-placement="bottom" data-trigger="hover" data-bind="click: switchToTripsPanel"></a>-->
-                <a class="icon icon-user button has-tooltip" data-toggle="tooltip" data-original-title="Other Friends" data-placement="bottom" data-trigger="hover" data-bind="click: showUnknownFriendsModal"></a>
-                <a class="icon icon-bar-chart button has-tooltip" data-toggle="tooltip" data-original-title="My Stats" data-placement="bottom" data-trigger="hover" data-bind="click: showFriendsPerCountryModal"></a>
+            <a id="fb-login-button" class="login button" data-bind="visible : loginStatus() === false, click : login">
+                <span class="icon-facebook-sign"></span>Login</a>
+            <div id="logged-in-container" class="clearfix" data-bind="visible : loginStatus, click: logout">
+                <a id="local-map" class="icon icon-home button has-tooltip"></a>
+                <a id="global-map" class="icon icon-globe button has-tooltip"></a>
                 <a id="fb-logout-button" class="login button" >Logout</a>
             </div>
         </div>
     </header>
     <div id="main-container" class="container-fluid">
-        <div id="loading-animation" class="icon-spinner icon-spin"></div>
-        <div id="home-panel" data-bind="slideVisible: isCurrentPanel('home')">
-        </div>
-        <div id="map-panel-container" data-bind="slideVisible: isCurrentPanel('map')">
+        <div id="map-panel-container">
             <div id="map-panel" class="panel"></div>
-
-            <div id="marker-switch-container" data-bind="visible: flights().length > 0">
-                <a class="icon-user icon-4x" data-toggle="tooltip" data-original-title="Show friends" data-placement="top" data-trigger="hover" data-bind="click: filterMapByFriends"></a>
-                <a class="icon-plane icon-4x" data-toggle="tooltip" data-original-title="Show trips" data-placement="top" data-trigger="hover" data-bind="click: filterMapByFlights"></a>
-            </div>
-
-            <div class="boarding-pass" data-bind="slideVisible: boardingPassPanelVisible()">
-                <img src="assets/img/boarding-pass-template-small.png" />
-                <div class="leaving-from wrapper clearfix"><label>From</label><input type="text" autocomplete="off" class="locations-autocomplete" data-bind='value: currentFlight().from, uniqueName: true' /></div>
-                <div class="going-to wrapper clearfix"><label>To</label><input type="text" autocomplete="off" class="locations-autocomplete" data-bind='value: currentFlight().to, uniqueName: true' /></div>
-                <div class="from-date wrapper clearfix"><label>Leaving on</label><input type="text" data-date-format="dd-mm-yyyy"></div>
-                <a href="#" class="icon-plus-sign add-button icon-2x" data-bind='click: $root.addFlight'></a>
-                <a href="#" class="icon-remove-sign remove-button icon-2x" data-bind='click: hideBoardingPassPanel'></a>
-            </div>
         </div>
-
-        <div id="trips-panel" class="panel" data-bind="slideVisible: isCurrentPanel('trips')">
-            <h3> Trips </h3>
-
-            <div class="boarding-pass">
-                <img src="assets/img/boarding-pass-template-small.png" />
-                <div class="leaving-from wrapper clearfix"><label>From</label><input type="text" autocomplete="off" class="locations-autocomplete" data-bind='value: currentFlight().from, uniqueName: true' /></div>
-                <div class="going-to wrapper clearfix"><label>To</label><input type="text" autocomplete="off" class="locations-autocomplete" data-bind='value: currentFlight().to, uniqueName: true' /></div>
-                <div class="from-date wrapper clearfix"><label>Leaving on</label><input type="text" data-date-format="dd-mm-yyyy"></div>
-                <a href="#" class="icon-plus-sign add-button icon-2x" data-bind='click: $root.addFlight'></a>
-            </div>
-
-            <table id="flights-table">
-                <tbody data-bind='foreach: flights'>
-                <tr>
-                    <td><input type="text" disabled data-bind='value: from, uniqueName: true' /></td>
-                    <td><input type="text" disabled data-bind='value: to, uniqueName: true' /></td>
-                    <td><a href="#" class="icon-remove-sign remove-button icon-2x" data-bind='click: $root.removeFlight'></a></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div id="events-panel" class="panel" data-bind="slideVisible: isCurrentPanel('events')"></div>
     </div>
-
-    <div id="friends-modal" class="modal hide fade modal-window" role="dialog" aria-hidden="true">
-
-    </div>
-    <div id="notifications-modal" class="modal hide fade modal-window" role="dialog" aria-hidden="true">
-        <h3>Notifications</h3>
-        <ul id="notifications-list"></ul>
-    </div>
-    <div id="unknown-location-modal" class="modal hide fade modal-window" role="dialog" aria-hidden="true">
-        <h3>Friends with Unknown Locations</h3>
-        <ul id="unknown-friend-list" class="friends-list"></ul>
-    </div>
-    <div id="friends-per-country-modal" class="modal hide fade modal-window" role="dialog" aria-hidden="true">
-        <h3>Friends per country</h3>
-        <ul id="country-list"></ul>
-    </div>
-
     <div id="fb-root"></div>
-
-    <script type="text/javascript" src="javascripts/appBindings.js"></script>
 </body>
 </html>
