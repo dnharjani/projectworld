@@ -61,40 +61,9 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService"], functi
         var friendsInfoChangeSubscriber = self.loginStatus.subscribe(function(newValue){
             if(newValue === true){
                 var success = function(result){
-                    self.friendsNoLocation = _.filter(result, function(item){
-                        return item.current_location === null;
-                    });
-                    self.friendsByLocation = _.chain(result)
-                                            .filter(function(item){
-                                                return item.current_location !== null;
-                                            })
-                                            .groupBy(function(item){
-                                                return item.current_location.name;
-                                            })
-                                            .map(function(value, key){
-                                                return {
-                                                    location : key,
-                                                    lat : value[0].current_location.latitude,
-                                                    lng : value[0].current_location.longitude,
-                                                    country : value[0].current_location.country,
-                                                    city : value[0].current_location.city,
-                                                    friends : value
-                                                }
-                                            })
-                                            .value();
-                    _.each(self.friendsByLocation, function(item){
-                        mapService.addMarker(item, function(friendLocationObject, e){
-                            self.selectedLocationFriends.removeAll();
-                            _.each(friendLocationObject.friends, function(friend){
-                                self.selectedLocationFriends.push(friend);
-                            });
-                        });
-                    })
-                    
-
-
-                    
-
+                    self.friendsNoLocation = getFriendsWithoutLocation(result);
+                    self.friendsByLocation = sortFriendsByLocation(result);
+                    drawMarkers();
                 }
                 facebook.getFriendsInfo(success);
             }
@@ -102,6 +71,44 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService"], functi
                 self.facebookFriends = ko.observableArray();
             }
         });
+
+        var drawMarkers = function(){
+            _.each(self.friendsByLocation, function(item){
+                mapService.addMarker(item, function(friendLocationObject, e){
+                    self.selectedLocationFriends.removeAll();
+                    _.each(friendLocationObject.friends, function(friend){
+                        self.selectedLocationFriends.push(friend);
+                    });
+                });
+            })
+        };
+
+        var getFriendsWithoutLocation = function(fbQueryResult){
+              _.filter(fbQueryResult, function(item){
+                return item.current_location === null;
+            });
+        };
+
+        var sortFriendsByLocation = function(fbQueryResult){
+            return  _.chain(fbQueryResult)
+                    .filter(function(item){
+                        return item.current_location !== null;
+                    })
+                    .groupBy(function(item){
+                        return item.current_location.name;
+                    })
+                    .map(function(value, key){
+                        return {
+                            location : key,
+                            lat : value[0].current_location.latitude,
+                            lng : value[0].current_location.longitude,
+                            country : value[0].current_location.country,
+                            city : value[0].current_location.city,
+                            friends : value
+                        }
+                    })
+                    .value();
+        };
 
     };
 
