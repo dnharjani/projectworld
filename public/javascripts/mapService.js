@@ -23,6 +23,17 @@ define(["gmaps", "modernizr"], function(GMaps, Modernizr)
             currentMap.removeMarkers();
             currentMap.removePolylines();
         };
+
+        this.addMarker = function(friendLocationObject, clickCallback){
+            currentMap.addMarker({
+                lat : friendLocationObject.lat,
+                lng : friendLocationObject.lng,
+                title : friendLocationObject.city,
+                click : function(event){
+                    clickCallback(friendLocationObject);
+                }
+            })
+        };
     };
 
     return new MapService();

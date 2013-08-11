@@ -5,14 +5,14 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService"], functi
         var self = this;
 
         self.loginStatus = ko.observable(false);
-        self.facebookFriends = ko.observableArray();
+        self.selectedLocationFriends = ko.observableArray();
         self.me = {};
+        self.friendsByLocation = [];
+        self.friendsNoLocation = [];
 
         self.initialize = function(){
             facebook.getLoginStatus(self.updateLoginStatus);
-
             mapService.createMap();
-
         };
 
         self.updateLoginStatus = function(response){
@@ -61,9 +61,40 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService"], functi
         var friendsInfoChangeSubscriber = self.loginStatus.subscribe(function(newValue){
             if(newValue === true){
                 var success = function(result){
-                    for(var i = 0; i < result.length; i++){
-                        self.facebookFriends.push(result[i]);
-                    }
+                    self.friendsNoLocation = _.filter(result, function(item){
+                        return item.current_location === null;
+                    });
+                    self.friendsByLocation = _.chain(result)
+                                            .filter(function(item){
+                                                return item.current_location !== null;
+                                            })
+                                            .groupBy(function(item){
+                                                return item.current_location.name;
+                                            })
+                                            .map(function(value, key){
+                                                return {
+                                                    location : key,
+                                                    lat : value[0].current_location.latitude,
+                                                    lng : value[0].current_location.longitude,
+                                                    country : value[0].current_location.country,
+                                                    city : value[0].current_location.city,
+                                                    friends : value
+                                                }
+                                            })
+                                            .value();
+                    _.each(self.friendsByLocation, function(item){
+                        mapService.addMarker(item, function(friendLocationObject, e){
+                            self.selectedLocationFriends.removeAll();
+                            _.each(friendLocationObject.friends, function(friend){
+                                self.selectedLocationFriends.push(friend);
+                            });
+                        });
+                    })
+                    
+
+
+                    
+
                 }
                 facebook.getFriendsInfo(success);
             }

@@ -30,6 +30,10 @@
         <div id="map-panel-container">
             <div id="map-panel" class="panel"></div>
         </div>
+        <ul id="friends-list" data-bind="foreach : selectedLocationFriends">
+            <li data-bind="text : name"></li>
+        </ul>
+
     </div>
     <div id="fb-root"></div>
 </body>
