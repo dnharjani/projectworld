@@ -11,6 +11,7 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscrol
         self.friendsByLocation = [];
         self.friendsNoLocation = [];
         self.currentLocation = ko.observable("");
+        self.selectedMessageFriends = ko.observableArray();
 
         self.friendsListScroll = null;
 
@@ -52,8 +53,9 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscrol
         self.openLeftMenu = function(){
             self.closeRightMenu();
             $('#slide-menu-left').addClass('cbp-spmenu-open');
+            self.selectedMessageFriends.removeAll();
             if(self.friendsListScroll === null){
-                self.friendsListScroll = new iScroll('scroll-wrapper', {checkDOMChanges: true, hScroll: false} );
+                self.friendsListScroll = new iScroll('left-scroll-wrapper', {checkDOMChanges: true, hScroll: false} );
             }
         };
 
@@ -70,6 +72,21 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscrol
             $('#slide-menu-right').removeClass('cbp-spmenu-open');
         };
 
+        self.toggleFriendSelect = function(friend, e){
+            $(e.target).toggleClass('icon-ok-circle icon-ok-sign');
+            if(self.selectedMessageFriends.indexOf(friend) !== -1){
+                self.selectedMessageFriends.remove(friend);   
+            }
+            else{
+                self.selectedMessageFriends.push(friend);
+            }
+        };
+
+        self.sendMessageToSelected = function(){
+            var ids = _.pluck(self.selectedMessageFriends(), 'uid').join();
+            
+        };
+
         var welcomeScreenChangeSubscriber = self.loginStatus.subscribe(function(newValue){
                 if(newValue === true){
                    $('#welcome-screen').modal('hide');
@@ -78,6 +95,7 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscrol
                     // Do nothing
                 }
         });
+
 
         var myInfoChangeSubscriber = self.loginStatus.subscribe(function(newValue){
             if(newValue === true){
@@ -149,6 +167,17 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscrol
         };
 
     };
+
+    ko.bindingHandlers.fadeVisible = {
+    init: function(element, valueAccessor) {
+        var value = valueAccessor();
+        $(element).toggle(ko.utils.unwrapObservable(value));
+    },
+    update: function(element, valueAccessor) {
+        var value = valueAccessor();
+        ko.utils.unwrapObservable(value) ? $(element).slideDown() : $(element).slideUp();
+    }
+};
 
     return new AppModel();
 });

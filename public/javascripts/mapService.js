@@ -32,13 +32,13 @@ define(["gmaps", "modernizr"], function(GMaps, Modernizr)
                 markerIcon = "group-black";
             }
             else if(friendCount >= 25){
-                markerIcon = "group-green";
+                markerIcon = "group-blue";
             }
             else if(friendCount >= 10){
                 markerIcon = "group-yellow";
             }
             else if(friendCount >= 5){
-                markerIcon = "group-blue";
+                markerIcon = "group-green";
             }
 
 
