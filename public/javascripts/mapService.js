@@ -25,6 +25,9 @@ define(["gmaps", "modernizr"], function(GMaps, Modernizr)
         };
 
         this.addMarker = function(friendLocationObject, clickCallback){
+            var markerIcon = "";
+
+
             currentMap.addMarker({
                 lat : friendLocationObject.lat,
                 lng : friendLocationObject.lng,

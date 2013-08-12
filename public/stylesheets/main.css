@@ -61,8 +61,12 @@ body{
     line-height: 26px;
 }
 
-.header #fb-logout-button{
+.header #menu-button{
     float: right;
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .header .button.icon{
@@ -70,13 +74,6 @@ body{
     float:left;
     font-size: 200%;
     font-weight: normal;;
-}
-
-#fb-login-button span{
-    display: block;
-    float: left;
-    padding-top: 3px;
-    padding-right: 5px;
 }
 
 #scroll-wrapper{
@@ -89,9 +86,9 @@ body{
 }
 
 #friends-list li {
- padding: 10px;
- border-bottom: 2px solid #3b5998;
- width: 100%;
+     padding: 10px;
+     border-bottom: 2px solid #3b5998;
+     width: 100%;
 }
 
 #friends-list li img{
@@ -107,4 +104,31 @@ body{
     margin: 0;
     font-weight: 300;
     max-width: 200px;
+}
+
+
+#welcome-screen{
+    height: 50%;
+}
+
+#welcome-screen .content{
+    padding: 30px;
+    text-align: center;
+}
+
+#welcome-screen h3{
+    font-family: 'Felipa', cursive;
+    font-weight : 400;
+    font-size: 38px;
+}
+
+#welcome-screen a{
+    display: block;
+    cursor: pointer;
+    padding: 30px;
+}
+
+#welcome-screen .icon-globe{
+    padding: 20px;
+    font-size: 200px;
 }

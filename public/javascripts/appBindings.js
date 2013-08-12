@@ -1,4 +1,4 @@
-define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscroll"], function(ko, _, Modernizr, facebook, mapService)
+define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscroll", "bootstrap"], function(ko, _, Modernizr, facebook, mapService)
 {
 
     var AppModel = function(){
@@ -15,7 +15,7 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscrol
 
         self.initialize = function(){
             facebook.getLoginStatus(self.updateLoginStatus);
-            mapService.createMap();
+            mapService.createMap();  
         };
 
         self.updateLoginStatus = function(response){
@@ -24,6 +24,7 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscrol
             }
             else{
                 self.loginStatus(false);
+                $('#welcome-screen').modal();
             }
         };
 
@@ -46,21 +47,29 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscrol
             facebook.logout(callback);
         };
 
-        self.openMenu = function(){
-            $('#slide-menu').addClass('cbp-spmenu-open');
+        self.openLeftMenu = function(){
+            $('#slide-menu-left').addClass('cbp-spmenu-open');
             if(self.friendsListScroll === null){
                 self.friendsListScroll = new iScroll('scroll-wrapper', {checkDOMChanges: true, hScroll: false} );
             }
         };
 
-        self.closeMenu = function(){
-            $('#slide-menu').removeClass('cbp-spmenu-open');
+        self.closeLeftMenu = function(){
+            $('#slide-menu-left').removeClass('cbp-spmenu-open');
         };
 
-
+        var welcomeScreenChangeSubscriber = self.loginStatus.subscribe(function(newValue){
+                if(newValue === true){
+                   $('#welcome-screen').modal('hide');
+                }
+                else{
+                    // Do nothing
+                }
+        });
 
         var myInfoChangeSubscriber = self.loginStatus.subscribe(function(newValue){
             if(newValue === true){
+
                 var success = function(result){
                     self.me = result;
                 }
@@ -93,7 +102,7 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscrol
                     _.each(friendLocationObject.friends, function(friend){
                         self.selectedLocationFriends.push(friend);
                     });
-                    self.openMenu();
+                    self.openLeftMenu();
                     self.currentLocation(friendLocationObject.city);
                 });
             })

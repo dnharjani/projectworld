@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="stylesheets/font-awesome.css">
     <link rel="stylesheet" href="stylesheets/main.css">
     <link rel="stylesheet" href="stylesheets/slide-menu.css">
-
+    <link href='http://fonts.googleapis.com/css?family=Felipa' rel='stylesheet' type='text/css'>
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC82ktM_T7U5hImcMmjYLbaNhXrp6g9uhY&sensor=false&v=3&libraries=geometry"></script>
 
@@ -16,8 +16,8 @@
 </head>
 <body>
     <div id="loading-animation" class="icon-spinner icon-spin"></div>    
-    <nav id="slide-menu" class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left">
-        <h3><span data-bind="text : currentLocation"></span> <span class="icon-remove close-button" data-bind="click : closeMenu"></span></h3>
+    <nav id="slide-menu-left" class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left">
+        <h3><span data-bind="text : currentLocation"></span> <span class="icon-remove close-button" data-bind="click : closeLeftMenu"></span></h3>
         <div id="scroll-wrapper">
           <ul id="friends-list" data-bind="foreach : selectedLocationFriends">
             <li class="clearfix">
@@ -32,20 +32,25 @@
     
     <header class="header">
         <div class="container-fluid">
-            <a id="fb-login-button" class="login button" data-bind="visible : loginStatus() === false, click : login">
-                <span class="icon-facebook-sign"></span></a>
-            <div id="logged-in-container" class="clearfix" data-bind="visible : loginStatus, click: logout">
-                <a id="fb-logout-button" class="login button" >Logout</a>
-            </div>
+                <a id="menu-button" class="icon-reorder icon-2x"></a>
         </div>
     </header>
     <div id="main-container" class="container-fluid">
         <div id="map-panel-container">
             <div id="map-panel" class="panel"></div>
         </div>
-
-
     </div>
+
+    <div id="welcome-screen" class="modal hide fade" aria-hidden="true" data-backdrop="static">
+        <div class="content">
+            <h3> Welcome to Project World </h3>
+            <span class="icon-globe"></span>
+            <a data-bind="click : login">
+                <img src="/img/facebook-login-button.png">
+            </a>
+        </div>
+    </div>
+
     <div id="fb-root"></div>
 </body>
 </html>
