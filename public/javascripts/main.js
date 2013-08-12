@@ -7,6 +7,7 @@ require.config({
         "underscore" : "vendor/underscore",
         "modernizr" : "vendor/modernizr",
         "facebookSDK": "//connect.facebook.net/en_US/all",
+        "iscroll" : "vendor/iscroll",
 
         "appBindings" : "appBindings",
 

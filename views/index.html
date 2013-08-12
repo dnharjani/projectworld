@@ -7,21 +7,34 @@
     <link rel="stylesheet" href="stylesheets/bootstrap.css">
     <link rel="stylesheet" href="stylesheets/font-awesome.css">
     <link rel="stylesheet" href="stylesheets/main.css">
+    <link rel="stylesheet" href="stylesheets/slide-menu.css">
+
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC82ktM_T7U5hImcMmjYLbaNhXrp6g9uhY&sensor=false&v=3&libraries=geometry"></script>
 
     <script data-main="/javascripts/main" src="/javascripts/vendor/require.js"></script>
 </head>
 <body>
-    <div id="loading-animation" class="icon-spinner icon-spin"></div>           
+    <div id="loading-animation" class="icon-spinner icon-spin"></div>    
+    <nav id="slide-menu" class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left">
+        <h3><span data-bind="text : currentLocation"></span> <span class="icon-remove close-button" data-bind="click : closeMenu"></span></h3>
+        <div id="scroll-wrapper">
+          <ul id="friends-list" data-bind="foreach : selectedLocationFriends">
+            <li class="clearfix">
+                <img data-bind="attr : { src : 'https://graph.facebook.com/'+uid+'/picture'}" width=56 height=56/>
+                <div class="friend-information">
+                    <span data-bind="text : name"></span>
+                </div>  
+            </li>
+         </ul> 
+         </div>
+    </nav>       
     
     <header class="header">
         <div class="container-fluid">
             <a id="fb-login-button" class="login button" data-bind="visible : loginStatus() === false, click : login">
-                <span class="icon-facebook-sign"></span>Login</a>
+                <span class="icon-facebook-sign"></span></a>
             <div id="logged-in-container" class="clearfix" data-bind="visible : loginStatus, click: logout">
-                <a id="local-map" class="icon icon-home button has-tooltip"></a>
-                <a id="global-map" class="icon icon-globe button has-tooltip"></a>
                 <a id="fb-logout-button" class="login button" >Logout</a>
             </div>
         </div>
@@ -30,9 +43,7 @@
         <div id="map-panel-container">
             <div id="map-panel" class="panel"></div>
         </div>
-        <ul id="friends-list" data-bind="foreach : selectedLocationFriends">
-            <li data-bind="text : name"></li>
-        </ul>
+
 
     </div>
     <div id="fb-root"></div>

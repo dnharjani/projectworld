@@ -1,4 +1,4 @@
-define(["knockout", "underscore", "modernizr", "facebook", "mapService"], function(ko, _, Modernizr, facebook, mapService)
+define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscroll"], function(ko, _, Modernizr, facebook, mapService)
 {
 
     var AppModel = function(){
@@ -9,6 +9,9 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService"], functi
         self.me = {};
         self.friendsByLocation = [];
         self.friendsNoLocation = [];
+        self.currentLocation = ko.observable("");
+
+        self.friendsListScroll = null;
 
         self.initialize = function(){
             facebook.getLoginStatus(self.updateLoginStatus);
@@ -34,14 +37,25 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService"], functi
             };
 
             facebook.login(success, error);
-        }
+        };
 
         self.logout = function(){
             var callback = function(){
                 self.loginStatus(false);
             };
             facebook.logout(callback);
-        }
+        };
+
+        self.openMenu = function(){
+            $('#slide-menu').addClass('cbp-spmenu-open');
+            if(self.friendsListScroll === null){
+                self.friendsListScroll = new iScroll('scroll-wrapper', {checkDOMChanges: true, hScroll: false} );
+            }
+        };
+
+        self.closeMenu = function(){
+            $('#slide-menu').removeClass('cbp-spmenu-open');
+        };
 
 
 
@@ -79,6 +93,8 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService"], functi
                     _.each(friendLocationObject.friends, function(friend){
                         self.selectedLocationFriends.push(friend);
                     });
+                    self.openMenu();
+                    self.currentLocation(friendLocationObject.city);
                 });
             })
         };
@@ -104,7 +120,7 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService"], functi
                             lng : value[0].current_location.longitude,
                             country : value[0].current_location.country,
                             city : value[0].current_location.city,
-                            friends : value
+                            friends : _.sortBy(value, 'name')
                         }
                     })
                     .value();
