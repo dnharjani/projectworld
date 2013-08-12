@@ -6,7 +6,8 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscrol
 
         self.loginStatus = ko.observable(false);
         self.selectedLocationFriends = ko.observableArray();
-        self.me = {};
+        self.myName = ko.observable("");
+        self.myId = ko.observable("");
         self.friendsByLocation = [];
         self.friendsNoLocation = [];
         self.currentLocation = ko.observable("");
@@ -43,11 +44,13 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscrol
         self.logout = function(){
             var callback = function(){
                 self.loginStatus(false);
+                location.reload();
             };
             facebook.logout(callback);
         };
 
         self.openLeftMenu = function(){
+            self.closeRightMenu();
             $('#slide-menu-left').addClass('cbp-spmenu-open');
             if(self.friendsListScroll === null){
                 self.friendsListScroll = new iScroll('scroll-wrapper', {checkDOMChanges: true, hScroll: false} );
@@ -56,6 +59,15 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscrol
 
         self.closeLeftMenu = function(){
             $('#slide-menu-left').removeClass('cbp-spmenu-open');
+        };
+
+        self.openRightMenu = function(){
+            self.closeLeftMenu();
+            $('#slide-menu-right').addClass('cbp-spmenu-open');
+        };
+
+        self.closeRightMenu = function(){
+            $('#slide-menu-right').removeClass('cbp-spmenu-open');
         };
 
         var welcomeScreenChangeSubscriber = self.loginStatus.subscribe(function(newValue){
@@ -71,7 +83,8 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscrol
             if(newValue === true){
 
                 var success = function(result){
-                    self.me = result;
+                    self.myName(result.name);
+                    self.myId(result.id);
                 }
 
                 facebook.getMyInfo(success);

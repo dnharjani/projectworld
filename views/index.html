@@ -15,11 +15,10 @@
     <script data-main="/javascripts/main" src="/javascripts/vendor/require.js"></script>
 </head>
 <body>
-    <div id="loading-animation" class="icon-spinner icon-spin"></div>    
     <nav id="slide-menu-left" class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left">
         <h3><span data-bind="text : currentLocation"></span> <span class="icon-remove close-button" data-bind="click : closeLeftMenu"></span></h3>
         <div id="scroll-wrapper">
-          <ul id="friends-list" data-bind="foreach : selectedLocationFriends">
+          <ul id="friends-list" class="menu-list" data-bind="foreach : selectedLocationFriends">
             <li class="clearfix">
                 <img data-bind="attr : { src : 'https://graph.facebook.com/'+uid+'/picture'}" width=56 height=56/>
                 <div class="friend-information">
@@ -30,14 +29,30 @@
          </div>
     </nav>       
     
+    <nav id="slide-menu-right" class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right">
+        <h3><span class="icon-remove close-button" data-bind="click : closeRightMenu"></span></h3>
+        <div id="scroll-wrapper">
+          <ul id="navigation-list" class="menu-list">
+            <li><span class="icon-lightbulb icon-2x"></span><span class="menu-option">Notifications</span></li>
+            <li><span class="icon-cog icon-2x"></span><span class="menu-option">Settings</span></li>
+            <li data-bind="click : logout"><span class="icon-facebook-sign icon-2x"></span><span class="menu-option">Logout</span></li>
+         </ul> 
+         </div>
+    </nav>  
+
+
     <header class="header">
         <div class="container-fluid">
-                <a id="menu-button" class="icon-reorder icon-2x"></a>
+            <div id="user-info">
+                <img data-bind="attr : { src : 'https://graph.facebook.com/'+myId()+'/picture'}" width=35 height=35/>
+                <span class="name" data-bind="text : myName"></span>
+            </div>
+            <a id="menu-button" class="icon-reorder icon-2x" data-bind="click : openRightMenu"></a>
         </div>
     </header>
     <div id="main-container" class="container-fluid">
         <div id="map-panel-container">
-            <div id="map-panel" class="panel"></div>
+            <div id="map-panel"></div>
         </div>
     </div>
 

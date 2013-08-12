@@ -11,7 +11,8 @@ define(["gmaps", "modernizr"], function(GMaps, Modernizr)
                 lng: -5.593039,
                 minZoom : 2,
                 maxZoom : 12,
-                zoom : 2
+                zoom : 2,
+                disableDefaultUI : true
             });
         };
 

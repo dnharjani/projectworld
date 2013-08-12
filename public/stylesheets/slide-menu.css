@@ -12,12 +12,20 @@
     margin: 0;
     font-weight: 300;
     background: #3b5998;
-    line-height: 38px;
+    line-height: 37px;
+    height: 37px;
 }
 
-.cbp-spmenu .close-button {
+#slide-menu-left .close-button{
     float: right;
-    padding: 7px;
+}
+
+#slide-menu-right .close-button{
+
+}
+
+.close-button {
+    padding: 3px;
     cursor: pointer;
 }
  
