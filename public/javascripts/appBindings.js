@@ -7,7 +7,7 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscrol
         self.loginStatus = ko.observable(false);
         self.selectedLocationFriends = ko.observableArray();
         self.myName = ko.observable("");
-        self.myId = ko.observable("");
+        self.myId = ko.observable("100005535786845");
         self.friendsByLocation = [];
         self.friendsNoLocation = [];
         self.currentLocation = ko.observable("");

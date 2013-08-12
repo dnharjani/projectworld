@@ -26,13 +26,27 @@ define(["gmaps", "modernizr"], function(GMaps, Modernizr)
         };
 
         this.addMarker = function(friendLocationObject, clickCallback){
-            var markerIcon = "";
+            var markerIcon = "group-red";
+            var friendCount = friendLocationObject.friends.length;
+            if( friendCount >= 50){
+                markerIcon = "group-black";
+            }
+            else if(friendCount >= 25){
+                markerIcon = "group-green";
+            }
+            else if(friendCount >= 10){
+                markerIcon = "group-yellow";
+            }
+            else if(friendCount >= 5){
+                markerIcon = "group-blue";
+            }
 
 
             currentMap.addMarker({
                 lat : friendLocationObject.lat,
                 lng : friendLocationObject.lng,
                 title : friendLocationObject.city,
+                icon : '/img/markers/'+markerIcon+'.png',
                 click : function(event){
                     clickCallback(friendLocationObject);
                 }
