@@ -40,7 +40,7 @@ app.use(express.errorHandler());
 var userController = require('./controllers/userController');
 
 app.get('/', routes.index);
-app.post('/user' , userController.addUser);
+app.post('/user/:userid' , userController.addUser);
 
 app.listen(process.env.PORT || 3100);
 

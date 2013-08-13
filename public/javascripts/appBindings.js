@@ -101,7 +101,7 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
             if(newValue === true){
 
                 var success = function(result){
-                    apiService.addUser(result);
+                    apiService.updateUser(result);
                     self.myName(result.name);
                     self.myId(result.id);
                 }
