@@ -1,7 +1,7 @@
 define(["facebookSDK", "jquery", "underscore" ], function(FB, $, _){
     FB.init({
     appId      : 577325485612787,
-    channelUrl : '//localhost:3100/channel.html',
+    channelUrl : '/channel.html',
     status     : true, // check the login status upon init?
     cookie     : true, // set sessions cookies to allow your server to access the session?
     xfbml      : true  // parse XFBML tags on this page?    

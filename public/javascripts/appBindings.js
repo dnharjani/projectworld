@@ -1,4 +1,4 @@
-define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscroll", "bootstrap"], function(ko, _, Modernizr, facebook, mapService)
+define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiService",  "iscroll", "bootstrap"], function(ko, _, Modernizr, facebook, mapService, apiService)
 {
 
     var AppModel = function(){
@@ -101,6 +101,7 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "iscrol
             if(newValue === true){
 
                 var success = function(result){
+                    apiService.addUser(result);
                     self.myName(result.name);
                     self.myId(result.id);
                 }

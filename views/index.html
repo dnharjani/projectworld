@@ -22,9 +22,10 @@
 <body>
     <nav id="slide-menu-left" class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left">
         <h3><span data-bind="text : currentLocation"></span> <span class="icon-remove close-button" data-bind="click : closeLeftMenu"></span></h3>
-        <div class="message-link-container" data-bind="fadeVisible : selectedMessageFriends().length > 0, click: sendMessageToSelected">
-        <span class="message-link icon-envelope-alt icon-4x"></span>
-        </div>
+<!--         <div class="action-link-container">
+            <span data-bind="click: sendMessageToSelected" class="message-link icon-envelope-alt icon-4x"></span>
+            <span data-bind="click: sendMessageToSelected" class="plane-link icon-plane icon-4x"></span>
+        </div> -->
         <div id="left-scroll-wrapper">
           <ul id="friends-list" class="menu-list" data-bind="foreach : selectedLocationFriends">
             <li class="clearfix">
@@ -32,7 +33,7 @@
                 <div class="friend-information">
                     <span data-bind="text : name"></span>
                 </div>  
-                <span data-bind="click : $root.toggleFriendSelect" class="select-friend icon-ok-circle icon-2x"></span>  
+                <span data-bind="click : $root.toggleFriendSelect" class="select-friend icon-ok-circle"></span>  
             </li>
          </ul> 
          </div>
@@ -40,6 +41,10 @@
     
     <nav id="slide-menu-right" class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right">
         <h3><span class="icon-remove close-button" data-bind="click : closeRightMenu"></span></h3>
+        <div id="user-info">
+            <img data-bind="attr : { src : 'https://graph.facebook.com/'+myId()+'/picture'}" width=35 height=35/>
+            <span class="name" data-bind="text : myName"></span>
+        </div>
         <div id="right-scroll-wrapper">
           <ul id="navigation-list" class="menu-list">
             <li><span class="icon-lightbulb icon-2x"></span><span class="menu-option">Notifications</span></li>
@@ -52,10 +57,6 @@
 
     <header class="header">
         <div class="container-fluid">
-            <div id="user-info">
-                <img data-bind="attr : { src : 'https://graph.facebook.com/'+myId()+'/picture'}" width=35 height=35/>
-                <span class="name" data-bind="text : myName"></span>
-            </div>
             <a id="menu-button" class="icon-reorder icon-2x" data-bind="click : openRightMenu"></a>
         </div>
     </header>

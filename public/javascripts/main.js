@@ -10,6 +10,8 @@ require.config({
         "iscroll" : "vendor/iscroll",
 
         "appBindings" : "appBindings",
+        "mapService" : "mapService",
+        "apiService" : "apiService"
 
     },
     shim: {

@@ -25,7 +25,6 @@ body{
     margin: 0;
 }
 
-/** Top Bar header **/
 .header{
     background-color: #3b5998;
     height:45px;
@@ -42,18 +41,18 @@ body{
 #left-scroll-wrapper{
     height: 100%;
     position: relative;
-    border-top: 2px solid #627aad;
-    border-right: 2px solid #627aad;
+    border-top: 2px solid #e2e2e2;
+    border-right: 2px solid #e2e2e2;
 }
 
-.message-link-container{
-    border-right: 2px solid #627aad;
-    background : #e2e2e2;
+.action-link-container{
+    border-right: 2px solid #e2e2e2;
+    background : white;
 }
 
-.message-link-container .message-link{
-    margin-left: 127px;
-    padding: 5px;
+.message-link-container span{
+    float: left;
+    padding: 5px 20px;
     cursor: pointer;
 }
 
@@ -63,7 +62,12 @@ body{
 
 .menu-list li {
      padding: 10px;
-     border-bottom: 2px solid #627aad;
+     border-bottom: 2px solid #e2e2e2;
+}
+
+/* This is to prevent iScroll from prematurely cutting off content when the DOM Changes*/
+#friends-list{
+    padding-bottom: 100px;
 }
 
 #friends-list li img{
@@ -82,8 +86,9 @@ body{
 }
 
 #friends-list .select-friend{
-    float:right;
-    padding-top: 15px;
+    position:absolute;
+    right: 5px;
+    font-size: 3em;
     cursor: pointer;
 }
 
@@ -127,8 +132,12 @@ body{
 
 #user-info{
     position: absolute;
-    left: 10px;
+    left: 0px;
     top: 5px;
     color: white;
+    max-width: 280px;
+    max-height: 50px;
+    overflow: hidden;
+    line-height: 1.5em;
     font-size: 1.9em;
 }

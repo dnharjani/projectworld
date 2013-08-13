@@ -9,17 +9,19 @@ var express = require('express'),
     path = require('path'),
     request = require('request'),
     _ = require('underscore'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    fs = require('fs');
 
 // Bootstrap models
-//var models_path = __dirname + '/models/';
-//fs.readdirSync(models_path).forEach(function (file) {
-//    if (~file.indexOf('.js')) {
-//        require(models_path + '/' + file);
-//    }
-//});
+var models_path = __dirname + '/models/';
+fs.readdirSync(models_path).forEach(function (file) {
+   if (~file.indexOf('.js')) {
+       require(models_path + '/' + file);
+   }
+});
+
 // Connect to mongo
-//mongoose.connect('mongodb://localhost:27017');
+mongoose.connect('mongodb://localhost:27017');
 
 // Start app
 var app = express();
@@ -35,8 +37,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.engine('html', require('ejs').renderFile);
 app.use(express.errorHandler());
 
+var userController = require('./controllers/userController');
 
 app.get('/', routes.index);
+app.post('/user' , userController.addUser);
 
 app.listen(process.env.PORT || 3100);
 
