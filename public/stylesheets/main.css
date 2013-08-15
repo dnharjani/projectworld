@@ -28,11 +28,21 @@ body{
 .header{
     background-color: #3b5998;
     height:45px;
+    text-align:center;
+    color: white;   
+}
+
+.header .title{
+    font-family: 'Felipa', cursive;
+    font-size: 32px;
+    font-weight : 400;
+    position: relative;
+    top: 15px;
 }
 
 .header #menu-button{
+    color: white;   
     float: right;
-    color: white;
     padding: 7px;
     text-decoration: none;
     cursor: pointer;
