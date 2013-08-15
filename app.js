@@ -21,7 +21,7 @@ fs.readdirSync(models_path).forEach(function (file) {
 });
 
 // Connect to mongo
-mongoose.connect('mongodb://localhost:27017');
+// mongoose.connect('mongodb://localhost:27017');
 
 // Start app
 var app = express();

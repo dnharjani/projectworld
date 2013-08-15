@@ -16,30 +16,14 @@
     height: 37px;
 }
 
-.close-button{
+.cbp-spmenu .close-button{
     position:absolute;
     right: 4px;
-}
-
-.close-button {
     padding: 3px;
     cursor: pointer;
-}
- 
-.cbp-spmenu a {
-    display: block;
-    color: #fff;
-    font-size: 1.1em;
-    font-weight: 300;
-}
- 
-.cbp-spmenu a:hover {
-    background: #258ecd;
-}
- 
-.cbp-spmenu a:active {
-    background: #afdefa;
-    color: #47a3da;
+    border : 0;
+    text-decoration: none;
+    color: white;
 }
  
 /* Orientation-dependent styles for the content of the menu */

@@ -21,11 +21,7 @@
 </head>
 <body>
     <nav id="slide-menu-left" class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left">
-        <h3><span data-bind="text : currentLocation"></span> <span class="icon-remove close-button" data-bind="click : closeLeftMenu"></span></h3>
-<!--         <div class="action-link-container">
-            <span data-bind="click: sendMessageToSelected" class="message-link icon-envelope-alt icon-4x"></span>
-            <span data-bind="click: sendMessageToSelected" class="plane-link icon-plane icon-4x"></span>
-        </div> -->
+        <h3><span data-bind="text : currentLocation"></span> <a class="icon-remove close-button" data-bind="click : closeLeftMenu"></a></h3>
         <div id="left-scroll-wrapper">
           <ul id="friends-list" class="menu-list" data-bind="foreach : selectedLocationFriends">
             <li class="clearfix">
@@ -40,7 +36,7 @@
     </nav>       
     
     <nav id="slide-menu-right" class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right">
-        <h3><span class="icon-remove close-button" data-bind="click : closeRightMenu"></span></h3>
+        <h3><a href="#" class="icon-remove close-button"></a></h3>
         <div id="user-info">
             <img data-bind="attr : { src : 'https://graph.facebook.com/'+myId()+'/picture'}" width=35 height=35/>
             <span class="name" data-bind="text : myName"></span>
@@ -54,10 +50,9 @@
          </div>
     </nav>  
 
-
     <header class="header">
         <div class="container-fluid">
-            <a id="menu-button" class="icon-reorder icon-2x" data-bind="click : openRightMenu"></a>
+            <a href="#/navigation" id="menu-button" class="icon-reorder icon-2x"></a>
         </div>
     </header>
     <div id="main-container" class="container-fluid">
