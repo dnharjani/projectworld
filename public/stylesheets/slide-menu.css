@@ -2,7 +2,7 @@
  
 .cbp-spmenu {
     background: #f2f2f2;
-    position: absolute;
+    position: fixed;
 }
  
 .cbp-spmenu h3 {
