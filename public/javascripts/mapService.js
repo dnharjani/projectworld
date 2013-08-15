@@ -1,12 +1,8 @@
 define(["gmaps", "modernizr"], function(GMaps, Modernizr)
 {
     var currentMap = null;
-    var allowedBounds = new google.maps.LatLngBounds(
-        new google.maps.LatLng(70.33956792419954, 178.01171875), 
-        new google.maps.LatLng(83.86483689701898, -88.033203125)
-    );
 
-    var MapService = function(centerLat, centerLng){
+    var MapService = function(){
 
         this.createMap = function(){
             currentMap = new GMaps({

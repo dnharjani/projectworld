@@ -24,8 +24,6 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
             facebook.me.subscribe(function(newValue){
                 apiService.updateUser(newValue);
             }, this, "myInfo");
-            
-            mapService.createMap(); 
         };
 
         /**

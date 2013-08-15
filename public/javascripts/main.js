@@ -47,8 +47,10 @@ require.config({
 });
 
 require(
-    ['jquery', 'knockout', 'sammy', 'facebook', 'appModel', 'navigationMenuModel', 'welcomeScreenModel'],
-    function($, ko, Sammy, facebook, AppModel, NavigationMenuModel, WelcomeScreenModel){
+    ['jquery', 'knockout', 'sammy', 'facebook', 'mapService', 'appModel', 'navigationMenuModel', 'welcomeScreenModel'],
+    function($, ko, Sammy, facebook, mapService, AppModel, NavigationMenuModel, WelcomeScreenModel){
+        mapService.createMap(); 
+
         var appModel = new AppModel();
         var navigationMenuModel = new NavigationMenuModel();
         var welcomeScreenModel = new WelcomeScreenModel();
@@ -71,7 +73,6 @@ require(
 
         // Login
         facebook.getLoginStatus();  
-        
 
         ko.applyBindings(appModel, document.getElementById('slide-menu-left'));
         ko.applyBindings(welcomeScreenModel, document.getElementById('welcome-screen'));
