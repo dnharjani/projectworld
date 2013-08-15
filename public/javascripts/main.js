@@ -47,15 +47,11 @@ require.config({
 });
 
 require(
-    ['jquery', 'knockout', 'sammy', 'appModel', 'NavigationMenuModel', 'welcomeScreenModel'],function($, ko, Sammy, AppModel, NavigationMenuModel, WelcomeScreenModel){
+    ['jquery', 'knockout', 'sammy', 'facebook', 'appModel', 'navigationMenuModel', 'welcomeScreenModel'],
+    function($, ko, Sammy, facebook, AppModel, NavigationMenuModel, WelcomeScreenModel){
         var appModel = new AppModel();
         var navigationMenuModel = new NavigationMenuModel();
         var welcomeScreenModel = new WelcomeScreenModel();
-        
-        welcomeScreenModel.initialize();
-        navigationMenuModel.initialize();
-        appModel.initialize();
-        
 
         // Client side routing
         Sammy(function() {
@@ -69,6 +65,13 @@ require(
             });
         }).run();
 
+        welcomeScreenModel.initialize();
+        navigationMenuModel.initialize();
+        appModel.initialize();
+
+        // Login
+        facebook.getLoginStatus();  
+        
 
         ko.applyBindings(appModel, document.getElementById('slide-menu-left'));
         ko.applyBindings(welcomeScreenModel, document.getElementById('welcome-screen'));

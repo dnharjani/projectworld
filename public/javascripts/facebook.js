@@ -2,9 +2,9 @@ define(["facebookSDK", "jquery", "underscore", "knockout"], function(FB, $, _, k
     FB.init({
     appId      : 577325485612787,
     channelUrl : '/channel.html',
-    status     : true, // check the login status upon init?
-    cookie     : true, // set sessions cookies to allow your server to access the session?
-    xfbml      : true  // parse XFBML tags on this page?    
+    status     : true, 
+    cookie     : true, 
+    xfbml      : true   
     });
 
     var loginStatus = new ko.subscribable();

@@ -16,7 +16,6 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
          * Initializes the AppModel
          */
         self.initialize = function(){
-            
             // Subscribe to the facebook loginstatus
             facebook.loginStatus.subscribe(function(newValue){
                 self.loginStatus(newValue);
@@ -26,7 +25,6 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
                 apiService.updateUser(newValue);
             }, this, "myInfo");
             
-            facebook.getLoginStatus();
             mapService.createMap(); 
         };
 
