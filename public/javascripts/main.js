@@ -10,7 +10,9 @@ require.config({
         'iscroll' : 'vendor/iscroll',
         'sammy' : 'vendor/sammy',
 
-        'appBindings' : 'appBindings',
+        'appModel' : 'appModel',
+        'navigationMenuModel' : 'navigationMenuModel',
+        'welcomeScreenModel' : 'welcomeScreenModel',
         'mapService' : 'mapService',
         'apiService' : 'apiService'
 
@@ -45,8 +47,31 @@ require.config({
 });
 
 require(
-    ['jquery', 'knockout', 'appBindings', 'facebook'],function($, ko, appModel, facebook){
+    ['jquery', 'knockout', 'sammy', 'appModel', 'NavigationMenuModel', 'welcomeScreenModel'],function($, ko, Sammy, AppModel, NavigationMenuModel, WelcomeScreenModel){
+        var appModel = new AppModel();
+        var navigationMenuModel = new NavigationMenuModel();
+        var welcomeScreenModel = new WelcomeScreenModel();
+        
+        welcomeScreenModel.initialize();
+        navigationMenuModel.initialize();
         appModel.initialize();
-        ko.applyBindings(appModel);
+        
+
+        // Client side routing
+        Sammy(function() {
+            this.get('/', function() {
+                navigationMenuModel.closeMenu(); 
+                appModel.closeLeftMenu();    
+            });
+
+            this.get('#/navigation', function() {
+                navigationMenuModel.openMenu();    
+            });
+        }).run();
+
+
+        ko.applyBindings(appModel, document.getElementById('slide-menu-left'));
+        ko.applyBindings(welcomeScreenModel, document.getElementById('welcome-screen'));
+        ko.applyBindings(navigationMenuModel, document.getElementById('slide-menu-right'));
     }
 );

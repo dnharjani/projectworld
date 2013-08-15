@@ -34,28 +34,14 @@
          </ul> 
          </div>
     </nav>       
-    
-    <nav id="slide-menu-right" class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right">
-        <h3><a href="#" class="icon-remove close-button"></a></h3>
-        <div id="user-info">
-            <img data-bind="attr : { src : 'https://graph.facebook.com/'+myId()+'/picture'}" width=35 height=35/>
-            <span class="name" data-bind="text : myName"></span>
-        </div>
-        <div id="right-scroll-wrapper">
-          <ul id="navigation-list" class="menu-list">
-            <li><span class="icon-lightbulb icon-2x"></span><span class="menu-option">Notifications</span></li>
-            <li><span class="icon-cog icon-2x"></span><span class="menu-option">Settings</span></li>
-            <li data-bind="click : logout"><span class="icon-facebook-sign icon-2x"></span><span class="menu-option">Logout</span></li>
-         </ul> 
-         </div>
-    </nav>  
 
-    <header class="header">
+    <header id="main-header" class="header">
         <div class="container-fluid">
             <span class="title">Project World</span>
             <a href="#/navigation" id="menu-button" class="icon-reorder icon-2x"></a>
         </div>
     </header>
+    
     <div id="main-container" class="container-fluid">
         <div id="map-panel-container">
             <div id="map-panel"></div>
@@ -71,6 +57,21 @@
             </a>
         </div>
     </div>
+
+    <nav id="slide-menu-right" class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right">
+        <h3><a href="#" class="icon-remove close-button"></a></h3>
+        <div id="user-info">
+            <img data-bind="attr : { src : 'https://graph.facebook.com/'+myId()+'/picture'}" width=35 height=35/>
+            <span class="name" data-bind="text : myName"></span>
+        </div>
+        <div id="right-scroll-wrapper">
+          <ul id="navigation-list" class="menu-list">
+            <li><span class="icon-lightbulb icon-2x"></span><span class="menu-option">Notifications</span></li>
+            <li><span class="icon-cog icon-2x"></span><span class="menu-option">Settings</span></li>
+            <li data-bind="click : logout"><span class="icon-facebook-sign icon-2x"></span><span class="menu-option">Logout</span></li>
+         </ul> 
+         </div>
+    </nav>  
 
     <div id="fb-root"></div>
 </body>

@@ -1,74 +1,33 @@
-define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiService", "sammy", "iscroll", "bootstrap"], function(ko, _, Modernizr, facebook, mapService, apiService, Sammy)
+define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiService", "iscroll", "bootstrap"], function(ko, _, Modernizr, facebook, mapService, apiService, Sammy)
 {
 
     var AppModel = function(){
         var self = this;
 
-        self.loginStatus = ko.observable(false);
+        self.loginStatus = ko.observable();
         self.selectedLocationFriends = ko.observableArray();
-        self.myName = ko.observable("");
-        self.myId = ko.observable("100005535786845");
         self.friendsByLocation = [];
         self.friendsNoLocation = [];
         self.currentLocation = ko.observable("");
         self.selectedMessageFriends = ko.observableArray();
-
         self.friendsListScroll = null;
 
         /**
          * Initializes the AppModel
          */
         self.initialize = function(){
-            facebook.getLoginStatus(self.updateLoginStatus);
+            
+            // Subscribe to the facebook loginstatus
+            facebook.loginStatus.subscribe(function(newValue){
+                self.loginStatus(newValue);
+            }, this, "loginStatus");
+
+            facebook.me.subscribe(function(newValue){
+                apiService.updateUser(newValue);
+            }, this, "myInfo");
+            
+            facebook.getLoginStatus();
             mapService.createMap(); 
-
-            // Client side routing
-            Sammy(function() {
-
-                this.get('/', function() {
-                    self.closeMenus();  
-                });
-
-                this.get('#/navigation', function() {
-                    self.openRightMenu();    
-                });
-            }).run();
-        };
-
-        /**
-         * 
-         */
-        self.updateLoginStatus = function(response){
-            if(response.status === "connected"){
-                self.loginStatus(true);
-            }
-            else{
-                self.loginStatus(false);
-                $('#welcome-screen').modal();
-            }
-        };
-
-        /**
-         * Facebook login / logout
-         */
-        self.login = function(){
-            var success = function(){
-                self.loginStatus(true);
-            };
-
-            var error = function(){
-
-            };
-
-            facebook.login(success, error);
-        };
-
-        self.logout = function(){
-            var callback = function(){
-                self.loginStatus(false);
-                location.reload();
-            };
-            facebook.logout(callback);
         };
 
         /**
@@ -77,13 +36,7 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
          *  Right Menu is the navigation menu
          */ 
 
-         self.closeMenus = function(){
-            self.closeLeftMenu();
-            self.closeRightMenu();
-         };
-
         self.openLeftMenu = function(){
-            self.closeRightMenu();
             $('#slide-menu-left').addClass('cbp-spmenu-open');
             self.selectedMessageFriends.removeAll();
             if(self.friendsListScroll === null){
@@ -93,15 +46,6 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
 
         self.closeLeftMenu = function(){
             $('#slide-menu-left').removeClass('cbp-spmenu-open');
-        };
-
-        self.openRightMenu = function(){
-            self.closeLeftMenu();
-            $('#slide-menu-right').addClass('cbp-spmenu-open');
-        };
-
-        self.closeRightMenu = function(){
-            $('#slide-menu-right').removeClass('cbp-spmenu-open');
         };
 
         /**
@@ -126,57 +70,25 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
 
         /**
          *  Subscriber to see when the loginstatus changes
-         *  Hides the welcome screen
-         */
-        var welcomeScreenChangeSubscriber = self.loginStatus.subscribe(function(newValue){
-                if(newValue === true){
-                   $('#welcome-screen').modal('hide');
-                }
-                else{
-                    // Do nothing
-                }
-        });
-
-
-        /**
-         *  Subscriber to see when the loginstatus changes
+         *  Runs the facebook query to get the current users friends info 
          *  Runs the facebook query to get current users info
          */ 
-        var myInfoChangeSubscriber = self.loginStatus.subscribe(function(newValue){
+        var loginStatusChangeSubscriber = self.loginStatus.subscribe(function(newValue){
             if(newValue === true){
+                facebook.getMyInfo();
 
-                var success = function(result){
-                    apiService.updateUser(result);
-                    self.myName(result.name);
-                    self.myId(result.id);
-                }
-
-                facebook.getMyInfo(success);
-            }
-            else{
-                self.me = {};
-            }
-        });
-
-        /**
-         *  Subscriber to see when the loginstatus changes
-         *  Runs the facebook query to get the current users friends info
-         */ 
-        var friendsInfoChangeSubscriber = self.loginStatus.subscribe(function(newValue){
-            if(newValue === true){
-                var success = function(result){
+                facebook.getFriendsInfo(function(result){
                     self.friendsNoLocation = getFriendsWithoutLocation(result);
                     self.friendsByLocation = sortFriendsByLocation(result);
                     drawMarkers();
-                }
-                facebook.getFriendsInfo(success);
+                });
             }
             else{
+                self.me = {};
                 self.facebookFriends = ko.observableArray();
+                mapService.cleanMap();       
             }
         });
-
-
 
         /**
          * Private functions
@@ -251,5 +163,5 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
     }
 };
 
-    return new AppModel();
+    return AppModel;
 });

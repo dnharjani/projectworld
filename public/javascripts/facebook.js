@@ -1,4 +1,4 @@
-define(["facebookSDK", "jquery", "underscore" ], function(FB, $, _){
+define(["facebookSDK", "jquery", "underscore", "knockout"], function(FB, $, _, ko){
     FB.init({
     appId      : 577325485612787,
     channelUrl : '/channel.html',
@@ -7,37 +7,30 @@ define(["facebookSDK", "jquery", "underscore" ], function(FB, $, _){
     xfbml      : true  // parse XFBML tags on this page?    
     });
 
-    function getLoginStatus(callback){
+    var loginStatus = new ko.subscribable();
+    var me = new ko.subscribable();
+
+    function getLoginStatus(){
         FB.getLoginStatus(function(response) {
-            callback(response);
+            loginStatus.notifySubscribers((response.status === "connected"), "loginStatus");
         });
     }
 
-    function getMyInfo(success, error){
+    function getMyInfo(){
         FB.api('/me', {fields: 'name,id,location'} , function(result) {
-            if(result){
-                success(result);
-            }
-            else{
-                error();
-            }
+            me.notifySubscribers(result, "myInfo");
         }); 
     }
 
-    function login(success, error) {
+    function login() {
         FB.login(function(response) {
-            if (response.authResponse) {
-                success();
-            }
-            else {
-                error();
-            }
+            loginStatus.notifySubscribers((response.status === "connected"), "loginStatus");    
         }, {scope:'user_location, friends_location'});
     };
 
-    function logout(callback){
+    function logout(){
         FB.logout(function(response) {
-            callback();     
+            loginStatus.notifySubscribers(false, "loginStatus");          
         });
     };
 
@@ -61,7 +54,9 @@ define(["facebookSDK", "jquery", "underscore" ], function(FB, $, _){
         logout : logout,
         getMyInfo : getMyInfo,
         getFriendsInfo : getFriendsInfo,
-        getLoginStatus : getLoginStatus
+        getLoginStatus : getLoginStatus,
+        loginStatus : loginStatus,
+        me : me
     };
 
     return facebook;
