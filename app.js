@@ -21,7 +21,7 @@ fs.readdirSync(models_path).forEach(function (file) {
 });
 
 // Connect to mongo
-// mongoose.connect('mongodb://localhost:27017');
+mongoose.connect('mongodb://localhost:27017');
 
 // Start app
 var app = express();
@@ -40,7 +40,8 @@ app.use(express.errorHandler());
 var userController = require('./controllers/userController');
 
 app.get('/', routes.index);
-app.post('/user/:userid' , userController.addUser);
+app.post('/user/:userid' , userController.saveUser);
+app.post('/friends/:userid' , userController.saveFriends);
 
 app.listen(process.env.PORT || 3100);
 

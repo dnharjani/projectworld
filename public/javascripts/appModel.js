@@ -23,14 +23,17 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
 
             facebook.me.subscribe(function(newValue){
                 apiService.updateUser(newValue);
+
+                // Update and store the users friends
+                facebook.getFriendsInfo(function(result){
+                    apiService.updateFriends(newValue.id, result);
+                    self.friendsNoLocation = getFriendsWithoutLocation(result);
+                    self.friendsByLocation = sortFriendsByLocation(result);
+                    drawMarkers();
+                });
+
             }, this, "myInfo");
         };
-
-        /**
-         *  Methods to open and close the left and right menu
-         *  Left Menu is the list of friends at the currently selected location
-         *  Right Menu is the navigation menu
-         */ 
 
         self.openLeftMenu = function(){
             $('#slide-menu-left').addClass('cbp-spmenu-open');
@@ -66,18 +69,11 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
 
         /**
          *  Subscriber to see when the loginstatus changes
-         *  Runs the facebook query to get the current users friends info 
          *  Runs the facebook query to get current users info
          */ 
         var loginStatusChangeSubscriber = self.loginStatus.subscribe(function(newValue){
             if(newValue === true){
                 facebook.getMyInfo();
-
-                facebook.getFriendsInfo(function(result){
-                    self.friendsNoLocation = getFriendsWithoutLocation(result);
-                    self.friendsByLocation = sortFriendsByLocation(result);
-                    drawMarkers();
-                });
             }
             else{
                 self.me = {};
