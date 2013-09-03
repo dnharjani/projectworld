@@ -23,8 +23,10 @@ define(["jquery"], function($)
     	this.getNotifications = function(userId, success){
           $.ajax({
     				type: "GET",
-    				url: "/"+userId+"/notifications",
-    				success: success
+    				url: "/notifications/"+userId,
+    				success: function(data){
+                        success(data);
+                    }
         	});
     	};
     }

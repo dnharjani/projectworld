@@ -5,7 +5,8 @@ var UserSchema = new Schema({
   	uid: String,
 	currentLocation: String,
 	name: String,
-	friends: ['FriendSchema'] 
+	friends: ['FriendSchema'],
+	notifications: ['NotificationSchema']
 });
 
 mongoose.model('User', UserSchema);

@@ -1,4 +1,4 @@
-define(["jquery", "knockout", "facebook"], function($, ko, facebook)
+define(["jquery", "knockout", "facebook", "apiService"], function($, ko, facebook, apiService)
 {
 
     var NavigationMenuModel = function(){
@@ -10,7 +10,12 @@ define(["jquery", "knockout", "facebook"], function($, ko, facebook)
             facebook.me.subscribe(function(newValue){
                 self.myName(newValue.name);
                 self.myId(newValue.id);
+                apiService.getNotifications(newValue.id, function(data){
+                    console.log(data);
+                })
             }, this, "myInfo");
+
+
         }
 
         self.logout = function(){
