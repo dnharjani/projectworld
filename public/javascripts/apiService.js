@@ -11,12 +11,15 @@ define(["jquery"], function($)
         	});
     	};
 
-    	this.updateFriends = function(userId, friendData){
+    	this.updateFriends = function(userId, friendData, success){
           $.ajax({
     				type: "POST",
     				url: "/friends/"+userId,
                     contentType:"application/json",
-    				data: JSON.stringify({ friends : friendData})
+    				data: JSON.stringify({ friends : friendData}),
+                    success : function(){
+                        success();
+                    }
         	});
     	};
 
@@ -29,6 +32,14 @@ define(["jquery"], function($)
                     }
         	});
     	};
+
+        this.markNotificationsRead = function(userId, notificationIds){
+          $.ajax({
+                    type: "POST",
+                    url: "/notifications/"+userId,
+                    data: notificationIds
+            });
+        };
     }
 
     return new ApiService();

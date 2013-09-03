@@ -10,6 +10,7 @@ exports.saveUser = function(req, res){
 	User.findOne( { uid : req.params.userid}, function(err, user){
 		if(err){
 			console.log("Error while looking for user " + req.params.userid);
+			res.end();
 		}
 		else{
 			if(!user){
@@ -24,14 +25,16 @@ exports.saveUser = function(req, res){
 				currentUser.save(function(err, user){
 					if(err){
 						console.log("Error while saving user " + user.uid);
+						res.end();
 					}
 					else{
 						console.log("Saved user " + user.uid);	
+						res.end();
 					}
 				});
 			}
 		}
-	})
+	});
 };
 
 exports.saveFriends = function(req, res){
@@ -42,6 +45,7 @@ exports.saveFriends = function(req, res){
 		else{
 			if(!user){
 				console.log("Couldn't find user "+ req.params.userid);
+				res.end();
 			}
 			else{
 
@@ -87,14 +91,16 @@ exports.saveFriends = function(req, res){
 				user.save(function(err, user){
 					if(err){
 						console.log("Error while saving friends for user " + user.uid);
+						res.end();
 					}
 					else{
 						console.log("Saved friends for user " + user.uid);	
+						res.end();
 					}
 				});
 			}
 		}
-	})
+	});
 };
 
 exports.getNotifications = function(req, res){

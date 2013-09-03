@@ -11,7 +11,6 @@ require.config({
         'sammy' : 'vendor/sammy',
 
         'appModel' : 'appModel',
-        'navigationMenuModel' : 'navigationMenuModel',
         'welcomeScreenModel' : 'welcomeScreenModel',
         'mapService' : 'mapService',
         'apiService' : 'apiService'
@@ -47,35 +46,34 @@ require.config({
 });
 
 require(
-    ['jquery', 'knockout', 'sammy', 'facebook', 'mapService', 'appModel', 'navigationMenuModel', 'welcomeScreenModel'],
-    function($, ko, Sammy, facebook, mapService, AppModel, NavigationMenuModel, WelcomeScreenModel){
+    ['jquery', 'knockout', 'sammy', 'facebook', 'mapService', 'appModel', 'welcomeScreenModel'],
+    function($, ko, Sammy, facebook, mapService, AppModel, WelcomeScreenModel){
         mapService.createMap(); 
 
         var appModel = new AppModel();
-        var navigationMenuModel = new NavigationMenuModel();
         var welcomeScreenModel = new WelcomeScreenModel();
 
         // Client side routing
         Sammy(function() {
             this.get('/', function() {
-                navigationMenuModel.closeMenu(); 
+                appModel.closeNavigationMenu(); 
                 appModel.closeLeftMenu();    
             });
 
             this.get('#/navigation', function() {
-                navigationMenuModel.openMenu();    
+                appModel.openNavigationMenu(); 
+                appModel.closeLeftMenu();    
             });
         }).run();
 
         welcomeScreenModel.initialize();
-        navigationMenuModel.initialize();
         appModel.initialize();
 
         // Login
         facebook.getLoginStatus();  
 
         ko.applyBindings(appModel, document.getElementById('slide-menu-left'));
+        ko.applyBindings(appModel, document.getElementById('slide-menu-right'));
         ko.applyBindings(welcomeScreenModel, document.getElementById('welcome-screen'));
-        ko.applyBindings(navigationMenuModel, document.getElementById('slide-menu-right'));
     }
 );

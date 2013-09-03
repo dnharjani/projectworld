@@ -11,6 +11,9 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
         self.currentLocation = ko.observable("");
         self.selectedMessageFriends = ko.observableArray();
         self.friendsListScroll = null;
+        self.myName = ko.observable("");    
+        self.myId = ko.observable("100005535786845");
+        self.notifications = ko.observableArray();
 
         /**
          * Initializes the AppModel
@@ -22,11 +25,17 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
             }, this, "loginStatus");
 
             facebook.me.subscribe(function(newValue){
+                self.myName(newValue.name);
+                self.myId(newValue.id);
                 apiService.updateUser(newValue);
 
                 // Update and store the users friends
                 facebook.getFriendsInfo(function(result){
-                    apiService.updateFriends(newValue.id, result);
+                    apiService.updateFriends(newValue.id, result, function(){
+                        apiService.getNotifications(newValue.id, function(data){
+                            self.notifications.push(data);
+                        });
+                    });
                     self.friendsNoLocation = getFriendsWithoutLocation(result);
                     self.friendsByLocation = sortFriendsByLocation(result);
                     drawMarkers();
@@ -45,6 +54,19 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
 
         self.closeLeftMenu = function(){
             $('#slide-menu-left').removeClass('cbp-spmenu-open');
+        };
+
+        self.openNavigationMenu = function(){
+            $('#slide-menu-right').addClass('cbp-spmenu-open');
+        };
+
+        self.closeNavigationMenu = function(){
+            $('#slide-menu-right').removeClass('cbp-spmenu-open');
+        };
+
+        self.logout = function(){
+            facebook.logout();
+            location.hash = "#";
         };
 
         /**
