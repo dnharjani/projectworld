@@ -120,3 +120,24 @@ exports.getNotifications = function(req, res){
 		}
 	})
 };
+
+exports.markNotificationsRead = function(req, res){
+
+	User.findOne( { uid : req.params.userid}, function(err, user){
+		if(err){
+			console.log("Error while looking for user with uid " + req.params.userid);
+			res.end();
+		}
+		else{
+			if(!user){
+				console.log("Couldn't find user "+ req.params.userid);
+				res.end();
+			}
+			else{
+				// Mark all users notifications as read				
+
+				res.end();
+			}	
+		}
+	})
+}

@@ -41,6 +41,7 @@ var userController = require('./controllers/userController');
 
 app.get('/', routes.index);
 app.get('/notifications/:userid', userController.getNotifications);
+app.post('/notifications/:userid', userController.markNotificationsRead);
 app.post('/user/:userid' , userController.saveUser);
 app.post('/friends/:userid' , userController.saveFriends);
 

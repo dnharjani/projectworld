@@ -27,11 +27,13 @@
 </head>
 <body>
     <nav id="slide-menu-left" class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left">
-        <h3><span data-bind="text : currentLocation"></span> <a class="icon-remove close-button" data-bind="click : closeLeftMenu"></a></h3>
+        <h3><span data-bind="text : currentLocation"></span> <a href="#" class="icon-remove close-button"></a></h3>
         <div id="left-scroll-wrapper">
           <ul id="friends-list" class="menu-list" data-bind="foreach : selectedLocationFriends">
             <li class="clearfix">
-                <img data-bind="attr : { src : 'https://graph.facebook.com/'+uid+'/picture'}" width=56 height=56/>
+                <a target="_blank" data-bind="attr: { href : 'http://facebook.com/'+uid}">
+                    <img data-bind="attr : { src : 'https://graph.facebook.com/'+uid+'/picture'}" width=56 height=56/>
+                </a>
                 <div class="friend-information">
                     <span data-bind="text : name"></span>
                 </div>  
@@ -72,7 +74,7 @@
         </div>
         <div id="right-scroll-wrapper">
           <ul id="navigation-list" class="menu-list">
-            <li><span class="icon-lightbulb icon-2x"></span><span class="menu-option">Notifications</span></li>
+            <li><span class="icon-lightbulb icon-2x"></span><span class="menu-option">Notifications</span><span class="new-notifications" data-bind="text : unseenNotifications"> </span></li>
             <li><span class="icon-cog icon-2x"></span><span class="menu-option">Settings</span></li>
             <li data-bind="click : logout"><span class="icon-facebook-sign icon-2x"></span><span class="menu-option">Logout</span></li>
          </ul> 

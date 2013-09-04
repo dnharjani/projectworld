@@ -60,6 +60,10 @@ require(
                 appModel.closeLeftMenu();    
             });
 
+            this.get('#/location/:locationId', function() {
+                appModel.closeNavigationMenu();   
+            });
+
             this.get('#/navigation', function() {
                 appModel.openNavigationMenu(); 
                 appModel.closeLeftMenu();    

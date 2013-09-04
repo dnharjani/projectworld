@@ -1,4 +1,4 @@
-define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiService", "iscroll", "bootstrap"], function(ko, _, Modernizr, facebook, mapService, apiService, Sammy)
+define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiService", "iscroll", "bootstrap"], function(ko, _, Modernizr, facebook, mapService, apiService)
 {
 
     var AppModel = function(){
@@ -11,9 +11,13 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
         self.currentLocation = ko.observable("");
         self.selectedMessageFriends = ko.observableArray();
         self.friendsListScroll = null;
+        self.navMenuScroll = null;
         self.myName = ko.observable("");    
         self.myId = ko.observable("100005535786845");
         self.notifications = ko.observableArray();
+        self.unseenNotifications = ko.computed(function(){
+            return _.where(self.notifications(), {seen : false}).length;
+        }, self);
 
         /**
          * Initializes the AppModel
@@ -33,14 +37,15 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
                 facebook.getFriendsInfo(function(result){
                     apiService.updateFriends(newValue.id, result, function(){
                         apiService.getNotifications(newValue.id, function(data){
-                            self.notifications.push(data);
+                            _.each(data, function(notification){
+                                 self.notifications.push(notification);
+                            });
                         });
                     });
                     self.friendsNoLocation = getFriendsWithoutLocation(result);
                     self.friendsByLocation = sortFriendsByLocation(result);
                     drawMarkers();
                 });
-
             }, this, "myInfo");
         };
 
@@ -58,6 +63,9 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
 
         self.openNavigationMenu = function(){
             $('#slide-menu-right').addClass('cbp-spmenu-open');
+            if(self.navMenuScroll === null){
+                self.navMenuScroll = new iScroll('right-scroll-wrapper', {checkDOMChanges: true, hScroll: false} );
+            }
         };
 
         self.closeNavigationMenu = function(){
@@ -115,6 +123,7 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
         var drawMarkers = function(){
             _.each(self.friendsByLocation, function(item){
                 mapService.addMarker(item, function(friendLocationObject, e){
+                    location.hash = "#/location/"+friendLocationObject.locationId;
                     self.selectedLocationFriends.removeAll();
                     _.each(friendLocationObject.friends, function(friend){
                         self.selectedLocationFriends.push(friend);
@@ -167,15 +176,15 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
      **/
 
     ko.bindingHandlers.fadeVisible = {
-    init: function(element, valueAccessor) {
-        var value = valueAccessor();
-        $(element).toggle(ko.utils.unwrapObservable(value));
-    },
-    update: function(element, valueAccessor) {
-        var value = valueAccessor();
-        ko.utils.unwrapObservable(value) ? $(element).slideDown() : $(element).slideUp();
-    }
-};
+        init: function(element, valueAccessor) {
+            var value = valueAccessor();
+            $(element).toggle(ko.utils.unwrapObservable(value));
+        },
+        update: function(element, valueAccessor) {
+            var value = valueAccessor();
+            ko.utils.unwrapObservable(value) ? $(element).slideDown() : $(element).slideUp();
+        }
+    };
 
     return AppModel;
 });

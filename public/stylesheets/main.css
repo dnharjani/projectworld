@@ -65,6 +65,11 @@ body a:hover{
     border-right: 2px solid #e2e2e2;
 }
 
+#right-scroll-wrapper{
+    height: 100%;
+    border-left: 2px solid #e2e2e2;
+}
+
 .action-link-container{
     border-right: 2px solid #e2e2e2;
     background : white;
@@ -122,6 +127,15 @@ body a:hover{
     font-weight: 300;
 }
 
+#navigation-list .new-notifications{
+    background-color: grey;
+    padding: 6px;
+    border-radius: 5px;
+    color: white;
+    font-size:2em;
+    float: right;
+}
+
 
 #welcome-screen{
     height: 50%;
@@ -161,3 +175,4 @@ body a:hover{
     line-height: 1.5em;
     font-size: 1.9em;
 }
+
