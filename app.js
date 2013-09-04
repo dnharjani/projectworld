@@ -45,11 +45,10 @@ var generateMongoUrl = function(obj){
     return "mongodb://" + obj.username + ":" + obj.password + "@" + obj.hostname + ":" + obj.port + "/" + obj.db;
   }
   else{
-  return "mongodb://" + obj.hostname + ":" + obj.port + "/" + obj.db;
+    return "mongodb://" + obj.hostname + ":" + obj.port + "/" + obj.db;
+  }
 }
-}
-var mongourl = generateMongoUrl(mongo);
-mongoose.connect(mongourl);
+mongoose.connect(generateMongoUrl(mongo));
 
 
 // Start app
@@ -75,7 +74,7 @@ app.post('/user/:userid' , userController.saveUser);
 app.post('/friends/:userid' , userController.saveFriends);
 
 
-app.listen(process.env.PORT || 3100);
+app.listen(process.env.VCAP_APP_HOST ||process.env.PORT || 3100);
 
 exports = module.exports = app;
 

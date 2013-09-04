@@ -39,7 +39,6 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
                         apiService.getNotifications(newValue.id, function(data){
                             _.each(data.reverse(), function(notification){
                                  self.notifications.push(notification);
-                                 console.log(notification);
                             });
                         });
                     });
