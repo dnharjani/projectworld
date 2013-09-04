@@ -64,6 +64,8 @@ exports.saveFriends = function(req, res){
 						})
 
 						var newNotification = new Notification({
+							name : friend.name,
+							id : friend.uid,
 							oldLocation : [savedFriend.currentLocation],
 							newLocation : [newLocation],
 							seen : false

@@ -1,4 +1,4 @@
-define(["gmaps", "modernizr"], function(GMaps, Modernizr)
+define(["gmaps", "modernizr", "underscore"], function(GMaps, Modernizr, _)
 {
     var currentMap = null;
 
@@ -44,12 +44,13 @@ define(["gmaps", "modernizr"], function(GMaps, Modernizr)
 
 
             currentMap.addMarker({
+                id : friendLocationObject.locationId,
                 lat : friendLocationObject.lat,
                 lng : friendLocationObject.lng,
                 title : friendLocationObject.city,
                 icon : '/img/markers/'+markerIcon+'.png',
                 click : function(event){
-                    clickCallback(friendLocationObject);
+                    clickCallback(friendLocationObject, event);
                 }
             });
         };

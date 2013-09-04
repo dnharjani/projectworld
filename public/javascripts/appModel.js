@@ -37,8 +37,9 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
                 facebook.getFriendsInfo(function(result){
                     apiService.updateFriends(newValue.id, result, function(){
                         apiService.getNotifications(newValue.id, function(data){
-                            _.each(data, function(notification){
+                            _.each(data.reverse(), function(notification){
                                  self.notifications.push(notification);
+                                 console.log(notification);
                             });
                         });
                     });
@@ -123,7 +124,7 @@ define(["knockout", "underscore", "modernizr", "facebook", "mapService", "apiSer
         var drawMarkers = function(){
             _.each(self.friendsByLocation, function(item){
                 mapService.addMarker(item, function(friendLocationObject, e){
-                    location.hash = "#/location/"+friendLocationObject.locationId;
+                    location.hash = "#/location/";
                     self.selectedLocationFriends.removeAll();
                     _.each(friendLocationObject.friends, function(friend){
                         self.selectedLocationFriends.push(friend);

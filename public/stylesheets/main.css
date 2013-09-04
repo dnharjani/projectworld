@@ -136,6 +136,18 @@ body a:hover{
     float: right;
 }
 
+#notification-list {
+    margin : 20px 0 0 0;
+}
+
+#notification-list li{
+    border: none;
+}
+
+#notification-list li span{
+    font-weight: bold;
+}
+
 
 #welcome-screen{
     height: 50%;

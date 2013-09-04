@@ -74,7 +74,11 @@
         </div>
         <div id="right-scroll-wrapper">
           <ul id="navigation-list" class="menu-list">
-            <li><span class="icon-lightbulb icon-2x"></span><span class="menu-option">Notifications</span><span class="new-notifications" data-bind="text : unseenNotifications"> </span></li>
+            <li><span class="icon-lightbulb icon-2x"></span><span class="menu-option">Notifications</span><span class="new-notifications" data-bind="text : unseenNotifications"> </span>
+                <ul id="notification-list" data-bind="foreach : notifications">
+                    <li><a data-bind="attr : {href : '#/location/'}"><span data-bind="text : name"></span> moved to <span data-bind="text : newLocation[0].name"></span></a></li>
+                </ul>
+            </li>
             <li><span class="icon-cog icon-2x"></span><span class="menu-option">Settings</span></li>
             <li data-bind="click : logout"><span class="icon-facebook-sign icon-2x"></span><span class="menu-option">Logout</span></li>
          </ul> 
